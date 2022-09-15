@@ -1,22 +1,25 @@
+import { useContext } from "react";
 import { Route, Redirect } from "react-router";
+import { AuthContext } from "../contexts/auth";
 
 export default function RouteWrapper({
   component: Component,
   isPrivate,
   ...rest
 }) {
-  const loading = false;
-  const singed = false;
+  //import useContext para pegar o contexto do AuthContext.
+  //Que foi criado com createContext()
+  const { signed, loading } = useContext(AuthContext);
 
   if (loading) {
-    return <div></div>;
+    return <div>LOADING</div>;
   }
 
-  if (!singed && isPrivate) {
+  if (!signed && isPrivate) {
     return <Redirect to="/" />;
   }
 
-  if (singed && !isPrivate) {
+  if (signed && !isPrivate) {
     return <Redirect to="/dashboard" />;
   }
 
