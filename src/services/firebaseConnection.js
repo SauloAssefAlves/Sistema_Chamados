@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import "firebase/auth";
+import { getFirestore, doc, setDoc } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyALBFc8lzGR1P_CSYBR4lF_5RKAwsWhqCo",
@@ -11,7 +11,13 @@ const firebaseConfig = {
   measurementId: "G-BQBRYEG32J",
 };
 
-console.log(initializeApp.length);
 const firebase = initializeApp(firebaseConfig);
+
+export async function fireStore(collection, uid, data) {
+  console.log(collection, uid, data);
+  const db = getFirestore(firebase);
+
+  await setDoc(doc(db, collection, uid), data);
+}
 
 export default firebase;

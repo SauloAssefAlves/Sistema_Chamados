@@ -1,12 +1,10 @@
 import { useContext } from "react";
-import { Route, Redirect } from "react-router";
+import { Route, Routes, useNavigate, Outlet, Navigate } from "react-router";
 import { AuthContext } from "../contexts/auth";
 
-export default function RouteWrapper({
-  component: Component,
-  isPrivate,
-  ...rest
-}) {
+export default function RouteWrapper({ isPrivate }) {
+  const go = useNavigate();
+
   //import useContext para pegar o contexto do AuthContext.
   //Que foi criado com createContext()
   const { signed, loading } = useContext(AuthContext);
@@ -16,12 +14,12 @@ export default function RouteWrapper({
   }
 
   if (!signed && isPrivate) {
-    return <Redirect to="/" />;
+    return <Navigate to="/" />;
   }
 
   if (signed && !isPrivate) {
-    return <Redirect to="/dashboard" />;
+    return <Navigate to="/dashboard" />;
   }
 
-  return <Route {...rest} render={(props) => <Component {...props} />} />;
+  return <Outlet />;
 }

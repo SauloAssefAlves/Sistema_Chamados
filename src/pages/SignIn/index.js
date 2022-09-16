@@ -15,7 +15,7 @@ function SignIn() {
     <div className="container-center">
       <div className="login">
         <div className="login-area">
-          <img src={logo} alt="Sistema Logo" />
+          <img alt="Sistema Logo" />
         </div>
         <form onSubmit={handleSubmit}>
           <h1>Entrar</h1>
