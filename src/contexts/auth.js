@@ -1,9 +1,9 @@
 import { useState, UseEffect, createContext, useEffect } from "react";
+import { toast } from "react-toastify";
 import firebase, {
   StoreData,
   getStoreData,
 } from "../services/firebaseConnection";
-import { doc, getDoc, getFirestore } from "firebase/firestore";
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -54,9 +54,11 @@ function AuthProvider({ children }) {
         setUser(data);
         storageUser(data);
         setLoadingAuth(false);
+        toast.success("Bem vindo de volta!");
       })
       .catch((err) => {
         console.log(err);
+        toast.error("Ops algo deu errado!");
         setLoadingAuth(false);
       });
   }
@@ -70,7 +72,6 @@ function AuthProvider({ children }) {
     await createUserWithEmailAndPassword(auth, email, password)
       .then(async (res) => {
         //uid é o id gerado pelo firebase.
-
         let uid = res.user.uid;
         console.log(uid);
         //inserindo as informacoes do usuario na collection(table) users no id 'uid'
@@ -86,11 +87,13 @@ function AuthProvider({ children }) {
             setUser(data);
             storageUser(data);
             setLoadingAuth(false);
+            toast.success("Bem vindo a plataforma");
           }
         );
       })
       .catch((err) => {
         console.log(err);
+        toast.error("Ops algo deu errado!");
         setLoadingAuth(false);
       });
   }
