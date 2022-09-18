@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, doc, setDoc } from "firebase/firestore";
+import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyALBFc8lzGR1P_CSYBR4lF_5RKAwsWhqCo",
@@ -13,11 +13,16 @@ const firebaseConfig = {
 
 const firebase = initializeApp(firebaseConfig);
 
-export async function fireStore(collection, uid, data) {
+export async function StoreData(collection, uid, data) {
   console.log(collection, uid, data);
   const db = getFirestore(firebase);
 
   await setDoc(doc(db, collection, uid), data);
 }
 
+export async function getStoreData(collection, uid) {
+  const db = getFirestore(firebase);
+  const docRef = doc(db, collection, uid);
+  return await getDoc(docRef);
+}
 export default firebase;

@@ -1,14 +1,19 @@
 import "./singin.css";
-import { useState } from "react";
+import { useState, useContext } from "react";
+
+import { AuthContext } from "../../contexts/auth";
 import { Link, Router } from "react-router-dom";
 import logo from "../../assets/logo.png";
 function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { signIn, loadingAuth } = useContext(AuthContext);
 
   function handleSubmit(e) {
     e.preventDefault();
-    alert("CLicoyu");
+    if (email !== "" && password !== "") {
+      signIn(email, password);
+    }
   }
 
   return (
@@ -31,7 +36,9 @@ function SignIn() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <button type="submit">Acessar</button>
+          <button type="submit">
+            {loadingAuth ? "Carregando..." : "Acessar"}
+          </button>
         </form>
 
         <a href="/register">Criar uma conta</a>
