@@ -1,4 +1,4 @@
-import { useState, UseEffect, createContext, useEffect } from "react";
+import { useState, createContext, useEffect } from "react";
 import { toast } from "react-toastify";
 import firebase, {
   StoreData,
@@ -68,7 +68,6 @@ function AuthProvider({ children }) {
     setLoadingAuth(true);
 
     //crinado a conta no firebase.
-
     await createUserWithEmailAndPassword(auth, email, password)
       .then(async (res) => {
         //uid é o id gerado pelo firebase.

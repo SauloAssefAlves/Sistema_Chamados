@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import RouteWrapper from "./RouteAuth";
 import Dashboard from "../pages/Dashboard";
 import SignIn from "../pages/SignIn";
-import SignUp from "../pages/SingUp";
+import SignUp from "../pages/SignUp";
 
 export default function RoutesCustom() {
   return (

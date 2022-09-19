@@ -23,7 +23,7 @@ function SignUp() {
     <div className="container-center">
       <div className="login">
         <div className="login-area">
-          <img src={logo} alt="Sistema Logo" />
+          <img alt="Sistema Logo" />
         </div>
         <form onSubmit={handleSubmit}>
           <h1>Cadastrar Conta</h1>
