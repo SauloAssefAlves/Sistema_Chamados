@@ -4,6 +4,7 @@ import RouteWrapper from "./RouteAuth";
 import Dashboard from "../pages/Dashboard";
 import SignIn from "../pages/SignIn";
 import SignUp from "../pages/SignUp";
+import Profile from "../pages/Profile";
 
 export default function RoutesCustom() {
   return (
@@ -16,6 +17,9 @@ export default function RoutesCustom() {
       </Route>
       <Route exact path="/dashboard" element={<RouteWrapper isPrivate />}>
         <Route exact path="/dashboard" element={<Dashboard />} />
+      </Route>
+      <Route exact path="/profile" element={<RouteWrapper isPrivate />}>
+        <Route exact path="/profile" element={<Profile />} />
       </Route>
     </Routes>
   );
