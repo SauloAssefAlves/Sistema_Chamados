@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/auth";
-import { Link, Router, useNavigate } from "react-router-dom";
-import logo from "../../assets/logo.png";
 
 function SignUp() {
   const [nome, setNome] = useState("");

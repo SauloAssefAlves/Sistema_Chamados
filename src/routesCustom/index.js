@@ -5,6 +5,7 @@ import Dashboard from "../pages/Dashboard";
 import SignIn from "../pages/SignIn";
 import SignUp from "../pages/SignUp";
 import Profile from "../pages/Profile";
+import Customers from "../pages/Customers";
 
 export default function RoutesCustom() {
   return (
@@ -20,6 +21,9 @@ export default function RoutesCustom() {
       </Route>
       <Route exact path="/profile" element={<RouteWrapper isPrivate />}>
         <Route exact path="/profile" element={<Profile />} />
+      </Route>
+      <Route exact path="/customers" element={<RouteWrapper isPrivate />}>
+        <Route exact path="/customers" element={<Customers />} />
       </Route>
     </Routes>
   );

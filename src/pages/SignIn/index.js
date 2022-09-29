@@ -2,8 +2,6 @@ import "./singin.css";
 import { useState, useContext } from "react";
 
 import { AuthContext } from "../../contexts/auth";
-import { Link, Router } from "react-router-dom";
-import logo from "../../assets/logo.png";
 function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
