@@ -4,7 +4,10 @@ import {
   doc,
   setDoc,
   getDoc,
+  getDocs,
   updateDoc,
+  query,
+  collection,
 } from "firebase/firestore";
 
 import { ref, uploadString, getStorage } from "firebase/storage";
@@ -20,28 +23,37 @@ const firebaseConfig = {
 };
 
 const firebase = initializeApp(firebaseConfig);
+const db = getFirestore(firebase);
 export const storage = getStorage(firebase);
 
 export async function StoreData(collection, uid, data) {
-  const db = getFirestore(firebase);
   await setDoc(doc(db, collection, uid), data);
 }
 
 export async function getStoreData(collection, uid) {
-  const db = getFirestore(firebase);
   const docRef = doc(db, collection, uid);
   return await getDoc(docRef);
 }
 
 export async function updateDocs(collection, uid, data) {
-  const db = getFirestore(firebase);
   const docRef = doc(db, collection, uid);
   return updateDoc(docRef, data);
 }
 
 export async function storeFile(reference, file) {
-  const db = getFirestore(firebase);
   return uploadString(ref(db, reference), file, "data_url");
+}
+
+export async function getCollection(collect) {
+  const array = [];
+  const q = query(collection(db, collect));
+  const querySnapshot = await getDocs(q);
+
+  querySnapshot.forEach((doc) => {
+    array.push({ id: doc.id, ...doc.data() });
+  });
+
+  return array;
 }
 
 // export async function getStorage() {
