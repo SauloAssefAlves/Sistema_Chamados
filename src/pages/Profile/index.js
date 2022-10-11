@@ -7,6 +7,7 @@ import { FiSettings, FiUpload } from "react-icons/fi";
 import { useState, useContext } from "react";
 import { updateDocs, storage } from "../../services/firebaseConnection";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { toast } from "react-toastify";
 
 export default function Profile() {
   const { user, signOut, setUser, storageUser } = useContext(AuthContext);
@@ -63,12 +64,16 @@ export default function Profile() {
           };
           setUser(data);
           storageUser(data);
+          toast.success("Conta alterada com sucesso");
         })
         .catch((err) => {
           console.log(err);
+          toast.error("Ops.. algo deu errado");
         });
     } else if (nome !== "" && imageAvatar !== null) {
-      handleUpload();
+      handleUpload().then(() => {
+        toast.success("Conta alterada com sucesso");
+      });
     }
   }
 

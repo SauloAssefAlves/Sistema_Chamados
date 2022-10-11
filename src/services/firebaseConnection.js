@@ -8,6 +8,9 @@ import {
   updateDoc,
   query,
   collection,
+  orderBy,
+  limit,
+  startAfter,
 } from "firebase/firestore";
 
 import { ref, uploadString, getStorage } from "firebase/storage";
@@ -44,9 +47,11 @@ export async function storeFile(reference, file) {
   return uploadString(ref(db, reference), file, "data_url");
 }
 
-export async function getCollection(collect) {
+export async function getCollection(collect, order, limited = 50) {
   const array = [];
-  const q = query(collection(db, collect));
+  const q = order
+    ? query(collection(db, collect), orderBy(...order), limit(limited))
+    : query(collection(db, collect), limit(limited));
   const querySnapshot = await getDocs(q);
 
   querySnapshot.forEach((doc) => {
