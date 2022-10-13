@@ -8,14 +8,19 @@ import { AuthContext } from "../../contexts/auth";
 import { addDoc, collection, getFirestore } from "firebase/firestore";
 import firebase from "../../services/firebaseConnection";
 import { toast } from "react-toastify";
+import { useParams, useNavigate } from "react-router-dom";
+import { getStoreData, updateDocs } from "../../services/firebaseConnection";
 
 export default function New() {
+  const { id } = useParams();
+  const navigate = useNavigate();
   const [loadCustomers, setLoadCustomers] = useState(true);
   const [customers, setCustomers] = useState([]);
   const [customerSelected, setCustomerSelected] = useState(0);
   const [assunto, setAssunto] = useState("Suporte");
   const [status, setStatus] = useState("Aberto");
   const [complemento, setComplemento] = useState("");
+  const [idCustomer, setIdCustomer] = useState(false);
 
   const { user } = useContext(AuthContext);
 
@@ -36,6 +41,9 @@ export default function New() {
 
           setCustomers(lista);
           setLoadCustomers(false);
+          if (id) {
+            loadId(lista);
+          }
         })
         .catch((err) => {
           setLoadCustomers(false);
@@ -46,8 +54,49 @@ export default function New() {
     loadCustomers();
   }, []);
 
+  async function loadId(lista) {
+    await getStoreData("called", id)
+      .then((res) => {
+        setAssunto(res.data().assunto);
+        setStatus(res.data().status);
+        setComplemento(res.data().complemento);
+
+        let index = lista.findIndex((item) => item.id == res.data().clienteId);
+        setCustomerSelected(index);
+        setIdCustomer(true);
+      })
+      .catch((err) => {
+        console.log("Erro no id passado... ", err);
+        setIdCustomer(false);
+      });
+  }
+
   async function handleRegister(e) {
     e.preventDefault();
+
+    //caso a um id
+    if (idCustomer) {
+      await updateDocs("called", id, {
+        cliente: customers[customerSelected].nomeEmpresa,
+        clienteId: customers[customerSelected].id,
+        assunto: assunto,
+        status: status,
+        complemento: complemento,
+        userId: user.uid,
+      })
+        .then((res) => {
+          toast.success("Chamado Editado com sucesso");
+          setComplemento("");
+          setCustomerSelected(0);
+          navigate("/dashboard");
+        })
+        .catch((err) => {
+          toast.error("Ops erro ao registrar..");
+          console.log(err);
+        });
+      return;
+    }
+
     const db = getFirestore(firebase);
 
     await addDoc(collection(db, "called"), {

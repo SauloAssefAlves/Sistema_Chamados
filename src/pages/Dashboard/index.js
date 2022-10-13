@@ -134,12 +134,13 @@ function Dashboard() {
                         >
                           <FiSearch size={17} color="#FFF" />
                         </button>
-                        <button
+                        <Link
                           className="action"
                           style={{ backgroundColor: "#f6a935" }}
+                          to={`/new/${item.id}`}
                         >
                           <FiEdit2 size={17} color="#FFF" />
-                        </button>
+                        </Link>
                       </td>
                     </tr>
                   );

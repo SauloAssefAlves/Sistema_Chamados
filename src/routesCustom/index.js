@@ -30,6 +30,9 @@ export default function RoutesCustom() {
       <Route exact path="/new" element={<RouteWrapper isPrivate />}>
         <Route exact path="/new" element={<New />} />
       </Route>
+      <Route exact path="/new/:id" element={<RouteWrapper isPrivate />}>
+        <Route exact path="/new/:id" element={<New />} />
+      </Route>
     </Routes>
   );
 }
