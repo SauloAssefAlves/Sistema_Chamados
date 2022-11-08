@@ -46,10 +46,14 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 - Date-fn
 - FireBase
 
+
+```
 # 👨🏻‍💻 Author
 
 - GitHub: [saulo-assef](https://github.com/SauloAssefAlves)
 - LinkedIn: [saulo-assef](www.linkedin.com/in/saulo-assef)
+
+
 
 # ✨ Show your support
 
