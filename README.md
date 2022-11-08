@@ -2,7 +2,7 @@
   <h1>Sistemas de Chamados</h1>
 </div>
 
-# :fire: Getting started
+# :hourglass: Getting started
 
 <h3 style="font-size: 18px;">🧬 Clone this repository</h3>
 
